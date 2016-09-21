@@ -1,0 +1,22 @@
+{
+    "name": "pixnet/laravel-memcached-view",
+    "description": "This is a package for laravel 5 to replace filesystem with memcached for view",
+    "type": "library",
+    "require": {
+        "laravel/framework": "5.2.*",
+        "php": ">=5.5.9"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tech",
+            "email": "tech@pixnet.tw"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PIXNET\\MemcachedView\\": "src"
+        }
+    },
+    "minimum-stability": "dev"
+}
