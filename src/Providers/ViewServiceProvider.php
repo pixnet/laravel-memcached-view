@@ -8,7 +8,7 @@
  *
  */
 
-namespace PIXNET\MemcachedView\Providers
+namespace PIXNET\MemcachedView\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\ViewServiceProvider as LaravelViewProvider;

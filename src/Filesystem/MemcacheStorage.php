@@ -8,7 +8,7 @@
  *
  */
 
-namespace PIXNET\MemcachedView\Filesystem
+namespace PIXNET\MemcachedView\Filesystem;
 
 class MemcacheStorage extends \Illuminate\Filesystem\Filesystem
 {
