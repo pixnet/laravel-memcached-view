@@ -26,7 +26,7 @@ class MemcacheStorage extends \Illuminate\Filesystem\Filesystem
         return !empty($this->get($key));
     }
 
-    public function get($key)
+    public function get($key, $lock = false)
     {
         $value = $this->memcached->get($key);
         return $value ? $value['content'] : null;
