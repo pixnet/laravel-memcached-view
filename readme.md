@@ -1,11 +1,4 @@
 # LaravelMemcachedView 
-
-[![Packagist License][badge_license]](LICENSE.md) [![For Laravel 5][badge_laravel]][link-github-repo]
-[![Github Issues][badge_issues]][link-github-issues]
-[![Packagist][badge_package]][link-packagist]
-[![Packagist Release][badge_release]][link-packagist]
-[![Packagist Downloads][badge_downloads]][link-packagist]
-
 *By [PIXNET &copy;](http://www.pixnet.net)*
 
 Memcached base for blade cache instead of file base.
