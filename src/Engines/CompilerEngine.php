@@ -12,7 +12,7 @@ namespace PIXNET\MemcachedView\Engines;
 
 use Illuminate\Filesystem\Filesystem;
 use Exception;
-use Illuminate\View\ErrorException;
+use ErrorException;
 use Illuminate\View\Compilers\CompilerInterface;
 
 class CompilerEngine extends PhpEngine
