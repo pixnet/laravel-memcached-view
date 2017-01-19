@@ -11,7 +11,7 @@
 namespace PIXNET\MemcachedView\Engines;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\View\Exception;
+use Exception;
 use Illuminate\View\ErrorException;
 use Illuminate\View\Compilers\CompilerInterface;
 
