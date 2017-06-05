@@ -12,12 +12,16 @@ namespace PIXNET\MemcachedView\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\ViewServiceProvider as LaravelViewProvider;
+use Illuminate\View\Compilers\BladeCompiler as LaravelBladeCompiler;
+use Illuminate\View\Engines\CompilerEngine as LaravelCompilerEngine;
+use Illuminate\View\Engines\PhpEngine as LaravelPhpEngine;
 use PIXNET\MemcachedView\Engines\CompilerEngine;
 use PIXNET\MemcachedView\Engines\PhpEngine;
 use PIXNET\MemcachedView\Compilers\BladeCompiler;
 
 class ViewServiceProvider extends LaravelViewProvider
 {
+    protected $isMemcachedEnabled;
     /**
      * registerBladeEngine
      *
@@ -28,17 +32,28 @@ class ViewServiceProvider extends LaravelViewProvider
     public function registerBladeEngine($resolver)
     {
         $app = $this->app;
+        $this->isMemcachedEnabled = config('cache.default') == 'memcached';
         $storage = $app->make('MemcacheStorage');
         $app->singleton('blade.compiler', function ($app) use ($storage) {
 
+            if(!$this->isMemcachedEnabled)
+            {
+                return new LaravelBladeCompiler(
+                    $this->app['files'], $this->app['config']['view.compiled']
+                );
+            }
             $cache = $app['config']['view.compiled'];
-
             return new BladeCompiler($storage, $app['files'], $cache);
         });
 
         $resolver->register('blade', function () use ($app, $storage) {
+            if(!$this->isMemcachedEnabled)
+            {
+                return new LaravelCompilerEngine($this->app['blade.compiler']);
+            }
             return new CompilerEngine($app['blade.compiler'], $storage);
         });
+
 
     }
 
@@ -50,8 +65,16 @@ class ViewServiceProvider extends LaravelViewProvider
      */
     public function registerPhpEngine($resolver)
     {
-        $resolver->register('php', function () {
-            return new PhpEngine;
-        });
+        if(!$this->isMemcachedEnabled)
+        {
+            $resolver->register('php', function () {
+                return new LaravelPhpEngine;
+            });
+        } else {
+            $resolver->register('php', function () {
+                return new PhpEngine;
+            });
+        }
+
     }
 }
